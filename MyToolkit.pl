@@ -37,9 +37,10 @@ sub main {
 		searchKeywords( $currentDir, $keywordsStr );
 	}
 	elsif ( $workTypeKey == 2 ) {
+		#匹配关键字
 		my $search_regex = qr/^\/\*.+?\*./;
-        my $replaceStr = "";
-        
+		#替换后的内容
+    my $replaceStr = "";   
 		searchReplace( $currentDir, $search_regex,$replaceStr);
 	}
 	elsif ( $workTypeKey == 3 ) {
