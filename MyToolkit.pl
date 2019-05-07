@@ -5,6 +5,7 @@
 use strict;
 use Cwd;
 
+our $VERSION = '1.0.0';
 my $arrayLength;
 
 #Access to the software's path
@@ -40,7 +41,7 @@ sub main {
 		#匹配关键字
 		my $search_regex = qr/^\/\*.+?\*./;
 		#替换后的内容
-    my $replaceStr = "";   
+		my $replaceStr = "";   
 		searchReplace( $currentDir, $search_regex,$replaceStr);
 	}
 	elsif ( $workTypeKey == 3 ) {
@@ -97,7 +98,7 @@ sub searchReplace {
 			while (<DIRFILE>) {
 				my ($FileContent) = $_;
 				my $OldFileContent = $FileContent;
-				if ( $FileContent =~ s/$keywordsStr/$replaceStr/ ) {
+				if ( $FileContent =~ s/$keywordsStr/$replaceStr/g ) {
 					$rearchResult = $rearchResult."在"
 						  . $fileName . "第"
 						  . $lineCount . "行  "
@@ -151,6 +152,8 @@ sub searchKeywords {
 		#		print "fileList=@fileList\n";
 	}
 	closedir(DIR);
+	# 过滤文件,获取后缀为txt和log的文件
+	# @fileList = grep { /^.+\.(txt|log)/ }@fileList;
 	my $arrayLength = @fileList;
 	my $fileName;
 	my $rearchResult = "";
